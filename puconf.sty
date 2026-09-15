@@ -1,0 +1,51 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{puconf}[2026/09/15 PU-Boost arXiv conference-style layout]
+\RequirePackage[letterpaper,top=0.64in,bottom=0.70in,left=0.68in,right=0.68in,columnsep=0.24in]{geometry}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{newtxtext,newtxmath}
+\RequirePackage{microtype}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath,mathtools}
+\RequirePackage{booktabs,tabularx,array}
+\RequirePackage{caption,subcaption}
+\RequirePackage{float,placeins,stfloats}
+\RequirePackage{titlesec}
+\RequirePackage{xurl}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{balance}
+\RequirePackage{enumitem}
+
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+\setlength{\columnsep}{0.24in}
+\setlength{\textfloatsep}{6pt plus 2pt minus 2pt}
+\setlength{\floatsep}{5pt plus 2pt minus 1pt}
+\setlength{\intextsep}{5pt plus 2pt minus 1pt}
+\setlength{\dbltextfloatsep}{6pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{5pt plus 2pt minus 1pt}
+\setlength{\abovedisplayskip}{5pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{5pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{3pt plus 1pt minus 1pt}
+\setlength{\belowdisplayshortskip}{3pt plus 1pt minus 1pt}
+\setlength{\jot}{2pt}
+\emergencystretch=1.5em
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\interfootnotelinepenalty=10000
+
+\titleformat{\section}{\large\bfseries}{\thesection}{0.55em}{}
+\titlespacing*{\section}{0pt}{8pt plus 2pt minus 1pt}{3.5pt}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{6pt plus 1pt minus 1pt}{2.5pt}
+\titleformat{\subsubsection}{\normalsize\bfseries\itshape}{\thesubsubsection}{0.45em}{}
+\titlespacing*{\subsubsection}{0pt}{5pt plus 1pt minus 1pt}{2pt}
+
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=justified,singlelinecheck=false,skip=2.5pt}
+\captionsetup[table]{position=top,skip=2.5pt}
+\captionsetup[figure]{position=bottom}
+\renewcommand{\arraystretch}{1.06}
+\urlstyle{same}
+\pagestyle{plain}
+\setcounter{secnumdepth}{2}
