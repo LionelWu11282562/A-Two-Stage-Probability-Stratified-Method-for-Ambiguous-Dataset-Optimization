@@ -105,7 +105,7 @@ P=A
 
 where `A` represents previously diagnosed hypertension cases.
 
-The unlabeled set is:
+The unlabeled population is:
 
 ```math
 U=B\cup C
@@ -139,14 +139,14 @@ f_1(X_i)
 {1+\exp[-(\beta_0+X_i^\top\beta)]}
 ```
 
-The score measures how strongly an observation resembles the labeled-positive population.
+The score measures the extent to which an observation resembles the labeled-positive population and is used for ranking and stratification.
 
 The Elastic Net parameters are estimated through the penalized objective:
 
 ```math
 (\widehat{\beta}_0,\widehat{\beta})
 =
-\operatorname*{arg\,min}_{\beta_0,\beta}
+\mathrm{argmin}_{\beta_0,\beta}
 \left\{
 -\frac{1}{n}
 \sum_{i=1}^{n}
@@ -173,7 +173,7 @@ where:
 \sum_{j=1}^{p}|\beta_j|
 ```
 
-and
+and:
 
 ```math
 \|\beta\|_2^2
@@ -181,7 +181,7 @@ and
 \sum_{j=1}^{p}\beta_j^2
 ```
 
-The regularization parameter `λ` controls the overall penalty strength, while `α` controls the balance between L1 and L2 regularization.
+The regularization parameter `λ` controls the overall penalty strength, while `α` controls the relative contributions of L1 and L2 regularization.
 
 The pair `(α, λ)` is selected by 10-fold cross-validation.
 
@@ -195,12 +195,12 @@ L_k(\alpha,\lambda),
 K=10
 ```
 
-with:
+The selected parameters satisfy:
 
 ```math
 (\widehat{\alpha},\widehat{\lambda})
 =
-\operatorname*{arg\,min}_{\alpha,\lambda}
+\mathrm{argmin}_{\alpha,\lambda}
 CV(\alpha,\lambda)
 ```
 
@@ -222,7 +222,7 @@ where:
 - `N₁`: high-confidence candidate negatives
 - `U₁`: uncertain observations
 
-The Stage-1 thresholds are derived from empirical score quantiles:
+The Stage-1 thresholds are constructed from empirical score quantiles:
 
 ```math
 t_H^{(1)}
@@ -268,7 +268,7 @@ D_1
 P_1\cup N_1
 ```
 
-The Stage-1 candidate labels are:
+The Stage-1 pseudo-labels are:
 
 ```math
 Z_i^{(1)}
@@ -303,7 +303,7 @@ R, & t_L^{(2)} < r_i < t_H^{(2)}.
 
 where `R` is a **reject set** containing observations that remain highly ambiguous after both stages.
 
-The Stage-2 thresholds are again defined using training-score distributions:
+The Stage-2 thresholds are defined from the corresponding training-score distributions:
 
 ```math
 t_H^{(2)}
@@ -347,7 +347,7 @@ D_P
 P_1\cup P_2
 ```
 
-and the retained negative candidates are:
+The retained negative candidates are:
 
 ```math
 D_N
@@ -415,7 +415,7 @@ Rather than assigning labels to every unlabeled observation, PU-Boost trades tra
 
 # Final Classifier
 
-After the two-stage reconstruction, XGBoost is trained on:
+After the two-stage reconstruction, XGBoost is trained on the reconstructed sample:
 
 ```math
 \{X_i,\widetilde{Y}_i\}
@@ -427,7 +427,7 @@ to learn the final nonlinear decision function:
 g(X)
 ```
 
-The final recorded XGBoost hyperparameters were:
+The recorded final XGBoost hyperparameters were:
 
 | Hyperparameter | Value |
 |---|---:|
@@ -437,11 +437,13 @@ The final recorded XGBoost hyperparameters were:
 | subsample | 0.5 |
 | colsample_bytree | 0.6 |
 
-The final prediction threshold in the primary analysis was fixed at:
+The primary classification threshold was fixed at:
 
 ```math
 0.5
 ```
+
+The resulting output is interpreted primarily as a ranking and classification score rather than as an absolute population disease probability unless additional calibration is performed.
 
 ---
 
@@ -462,7 +464,7 @@ Leading contributors included:
 - Current smoking
 - Diabetes
 
-These features are broadly consistent with established hypertension-related clinical and epidemiologic characteristics.
+These variables are broadly consistent with established clinical and epidemiologic characteristics associated with hypertension.
 
 SHAP values are used for **model attribution and interpretation** and should not be interpreted as causal effects.
 
@@ -479,9 +481,9 @@ The data were divided into:
 | Training | 25,883 |
 | Validation | 8,611 |
 | Test | 8,611 |
-| Total | 43,105 |
+| **Total** | **43,105** |
 
-The test set contained:
+The independent test set contained:
 
 - **3,987 reference-positive participants**
 - **4,624 reference-negative participants**
@@ -494,7 +496,7 @@ Direct blood-pressure measurements were used to define the reference disease sta
 
 Participants were retrospectively divided into three groups:
 
-| Group | Definition | n | Role in PU Learning |
+| Group | Definition | n | PU Role |
 |---|---|---:|---|
 | A | Diagnosed hypertension | 13,287 | Labeled positive |
 | B | Undiagnosed hypertension | 9,393 | Unlabeled |
@@ -514,36 +516,7 @@ U=B\cup C
 
 During PU reconstruction, the model observes only the distinction between `P` and `U`.
 
-The reference identities of `B` and `C` are used only outside the reconstruction procedure for model selection, interpretation, and final performance evaluation.
-
----
-
-# Repository Structure
-
-```text
-.
-├── README.md
-├── main.tex
-├── puconf.sty
-├── figures/
-│   ├── figure1_reference_structure.png
-│   ├── figure2_cohort_partition.png
-│   ├── figure3_stage1_elasticnet.png
-│   ├── figure4_stage2_randomforest.png
-│   ├── figure5_distribution_overlap.png
-│   ├── figure6_reconstruction_flow.png
-│   ├── figure7_performance.png
-│   ├── figure8a_shap_summary.png
-│   ├── figure8b_shap_dependence.png
-│   └── figure9_region_adjustment.png
-├── PU打标签.R
-├── URF.R
-├── XGBoost调校-copy.R
-├── 后校准.R
-├── 平行对比.R
-├── 数据输入.R
-└── 标准分配样本.R
-```
+The reference identities of `B` and `C` are not provided to the two-stage reconstruction algorithm. They are used only outside the reconstruction procedure for model selection, interpretation, and final performance evaluation.
 
 ---
 
