@@ -28,7 +28,7 @@ On the independent test set (`n = 8,611`), PU-Boost achieved the strongest scree
 | Logistic Regression | 0.6832 | 0.6417 | 0.6624 | 1,263 |
 | Standard XGBoost | 0.6897 | 0.6339 | 0.6618 | 1,237 |
 | Neural Network | 0.7186 | 0.5577 | 0.6382 | 1,122 |
-| **PU-Boost** | **0.8172** | 0.5474 | **0.6823** | **729** |
+| **PU-Boost** | **0.8172** | 0.5474 | **0.6823** | **729** | 
 
 ### Key Gains
 
