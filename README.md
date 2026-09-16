@@ -1,5 +1,5 @@
 # PU-Boost
-
+# PU-Boost
 ### A Two-Stage Reliable-Sample Reconstruction Positive-Unlabeled Learning Framework for Screening Undiagnosed Hypertension
 
 PU-Boost is a two-stage positive-unlabeled (PU) learning framework designed to reconstruct reliable supervision from ambiguous clinical labels.
@@ -15,6 +15,7 @@ Instead of treating all individuals without a prior hypertension diagnosis as ne
     <img src="figures/figure7_performance.png" width="900">
   </a>
 </p>
+
 
 <p align="center">
   <b>Test-set error profiles and sensitivity–specificity operating points.</b>
